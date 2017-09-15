@@ -92,11 +92,15 @@ IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
     data = new int[capacity];
 }
 
-IntSet::IntSet(const IntSet& src)
+IntSet::IntSet(const IntSet& src) : capacity(src.capacity), used(src.used)
 {
-   cout << "copy constructor is not implemented yet..." << endl;
-}
+    // Create a new dynamic array.
+    data = new int[capacity];
 
+    // Copy each item of the dynamic array.
+    for(int index = 0; index < capacity; ++index)
+        data[index] = src.data[index];
+}
 
 IntSet::~IntSet()
 {
