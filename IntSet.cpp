@@ -81,9 +81,15 @@ void IntSet::resize(int new_capacity)
    cout << "resize() is not implemented yet..." << endl;
 }
 
-IntSet::IntSet(int initial_capacity)
+IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
 {
-   cout << "IntSet(...) is not implemented yet..." << endl;
+    // Initialize capacity to user specified capacity, and test it
+    // for validity. If it's invalid then set it to DEFAULT_CAPACITY
+    // otherwise leave it as is.
+    if(initial_capacity <= 0){capacity = DEFAULT_CAPACITY;}
+
+    // Instantiate a new dynamic array of size capacity.
+    data = new int[capacity];
 }
 
 IntSet::IntSet(const IntSet& src)

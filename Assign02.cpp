@@ -1,7 +1,7 @@
 // FILE: Assign02.cpp
 //       An interactive test program for the IntSet data type.
 
-#include "../../../../../../Downloads/Assign02StarterFiles/IntSet.h"
+#include "IntSet.h"
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
@@ -42,6 +42,7 @@ void ResetAux(IntSet& is, int objNum, ostream& out);
 
 int main(int argc, char* argv[])
 {
+   IntSet is4(-1);
    IntSet is1, is2, is3;   // 3 IntSet's to perform tests on
    int objectNum,          // number specifying is1, is2 or is3
        pairedNum,          // number specifying primary and secondary objects
