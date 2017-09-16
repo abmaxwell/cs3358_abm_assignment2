@@ -181,8 +181,23 @@ bool IntSet::contains(int anInt) const
 
 bool IntSet::isSubsetOf(const IntSet& otherIntSet) const
 {
-   cout << "isSubsetOf() is not implemented yet..." << endl;
-   return false; // dummy value returned
+    if(isEmpty()) {
+
+        // Check to see if the invoking IntSet
+        // is empty. If it is then return true.
+        return true;
+
+    } else {
+
+        // Check otherIntSet against invoking intSet to
+        // determine if it's a subset of otherIntSet. If
+        // there's a mismatch abort and return false.
+        for(int index = 0; index < used; index++){
+            if(!otherIntSet.contains(data[index]))
+                return false;
+        }
+        return true;
+    }
 }
 
 void IntSet::DumpData(ostream& out) const
@@ -197,24 +212,44 @@ void IntSet::DumpData(ostream& out) const
 
 IntSet IntSet::unionWith(const IntSet& otherIntSet) const
 {
-   cout << "unionWith() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+    IntSet unionIntSet = (*this); //Copy of invoking IntSet.
+
+    int sizeOtherInt = otherIntSet.size(); // Keep size safe.
+
+    // Loop through IntSet to be added to invoking set. If duplicate
+    // elements found don't union, otherwise union unique elements.
+
+    for (int index = 0; index < sizeOtherInt; ++index) {
+        if(!unionIntSet.contains(otherIntSet.data[index]))
+            unionIntSet.add(otherIntSet.data[index]);
+    }
+    return unionIntSet;
 }
 
 IntSet IntSet::intersect(const IntSet& otherIntSet) const
 {
-   cout << "intersect() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+    IntSet interSet = (*this); // Create copy of invoking IntSet
+
+    int sizeOtherInt = otherIntSet.size(); // Keep size safe.
+
+    // Compare every item of invoking IntSet to otherIntSet
+    // if no match is found then remove it from interSet.
+    for (int index = 0; index < sizeOtherInt; index++) {
+        if(!otherIntSet.contains(data[index])){
+            interSet.remove(data[index]);
+        }
+    }
+    return interSet;
 }
 
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
 {
     IntSet subSet = (*this); // Create copy of invoking IntSet.
 
+    int sizeOtherInt = otherIntSet.size(); // Keep size safe.
+
     // If an element in intSet is also in otherSet then remove
     // it, otherwise keep elements in their respective sets.
-    int sizeOtherInt = otherIntSet.size();
-
     for(int index = 0; index < sizeOtherInt; ++index){
         if(subSet.contains(otherIntSet.data[index]))
             subSet.remove(otherIntSet.data[index]);
