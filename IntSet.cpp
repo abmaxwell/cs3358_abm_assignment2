@@ -129,9 +129,30 @@ IntSet::~IntSet()
 
 IntSet& IntSet::operator=(const IntSet& rhs)
 {
+    // Self-assignment fail-safe. If invoking object
+    // is the same as object being passed don't do
+    // any work just pass back invoking object.
+    if (this == &rhs)
+        return *this;
 
-   cout << "operator=() is not implemented yet..." << endl;
-   return *this;
+    // Create temporary dynamic array to safely assign contents
+    // of array.
+    int* temp_data = new int[rhs.capacity];
+
+    // Moved contents of rhs array to temp
+    for (int index = 0; index < rhs.capacity; ++index) {
+        temp_data[index] = rhs.data[index];
+    }
+
+    // Deallocate old dynamic array.
+    delete [] data;
+
+    // Start assigning member variables from rhs.
+    data = temp_data;
+    capacity = rhs.capacity;
+    used = rhs.used;
+
+    return *this;
 }
 
 int IntSet::size() const
