@@ -170,8 +170,13 @@ bool IntSet::isEmpty() const
 
 bool IntSet::contains(int anInt) const
 {
-   cout << "contains() is not implemented yet..." << endl;
-   return false; // dummy value returned
+    // Only traverse array if there are int's to check, otherwise
+    // return false because there's no int's to compare with.
+    if (used > 0){
+        for(int index = 0; index < used; ++index)
+            if(data[index] == anInt){ return true; }
+    }
+    return false;
 }
 
 bool IntSet::isSubsetOf(const IntSet& otherIntSet) const
