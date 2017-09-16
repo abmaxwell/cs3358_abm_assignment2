@@ -221,8 +221,23 @@ void IntSet::reset()
 
 bool IntSet::add(int anInt)
 {
-   cout << "add() is not implemented yet..." << endl;
-   return false; // dummy value returned
+    
+    // If anInt is unique then add it as the last element in the
+    // data array and return true.
+    if(!contains(anInt)){
+
+        // If used == capacity or is above then we can't
+        // add another item without resizing first.
+        if(used >= capacity) {resize(int(capacity * 1.5) + 1);}
+
+        // Regardless of resize add new item to dynamic
+        data[used] = anInt;
+        ++used;
+        return true;
+    }
+
+    // No unique int's added to dynamic array return false.
+    return false;
 }
 
 bool IntSet::remove(int anInt)
