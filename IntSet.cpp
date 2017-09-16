@@ -215,7 +215,8 @@ IntSet IntSet::subtract(const IntSet& otherIntSet) const
 
 void IntSet::reset()
 {
-   cout << "reset() is not implemented yet..." << endl;
+    // Reset intSet by reinitializing used to "0".
+    used = 0;
 }
 
 bool IntSet::add(int anInt)
@@ -226,8 +227,20 @@ bool IntSet::add(int anInt)
 
 bool IntSet::remove(int anInt)
 {
-   cout << "remove() is not implemented yet..." << endl;
-   return false; // dummy value returned
+    // If the intSet has the requested element in the set then
+    // remove it, and shift all elements to the left by one.
+    if(contains(anInt)){
+        for(int index = 0; index < used; ++index){
+            if(data[index] == anInt) {
+                for(int index2 = index; index2 < used; ++index2) {
+                    data[index2] = data[index2 + 1];
+                }
+                --used;
+                return true; // Int removed successfully.
+            }
+        }
+    }
+    return false; // No int removed.
 }
 
 bool operator==(const IntSet& is1, const IntSet& is2)
