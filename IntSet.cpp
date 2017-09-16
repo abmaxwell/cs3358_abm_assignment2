@@ -157,14 +157,15 @@ IntSet& IntSet::operator=(const IntSet& rhs)
 
 int IntSet::size() const
 {
-   cout << "size() is not implemented yet..." << endl;
-   return 0; // dummy value returned
+    // Return the value of used which is
+    // the number of elements in the array.
+    return used;
 }
 
 bool IntSet::isEmpty() const
 {
-   cout << "isEmpty() is not implemented yet..." << endl;
-   return false; // dummy value returned
+    // Empty if size() == 0, has unique int otherwise.
+    return used == 0;
 }
 
 bool IntSet::contains(int anInt) const
