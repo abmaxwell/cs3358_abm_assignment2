@@ -78,7 +78,25 @@ using namespace std;
 
 void IntSet::resize(int new_capacity)
 {
-   cout << "resize() is not implemented yet..." << endl;
+    // Confirm new capacity is valid. If it is then proceed to change
+    // capacity to user specified value.
+    if(new_capacity <=0){capacity = DEFAULT_CAPACITY;}
+    else if(new_capacity < used ){capacity = used;}
+    else{capacity = new_capacity; }
+
+    // Create new dynamic array with specified capacity
+    int* new_data = new int[capacity];
+
+    // Copy current data to new dynamic array.
+    for(int index = 0; index < used; ++index){
+        new_data[index] = data[index];
+    }
+
+    // Deallocate the space used by previous data array.
+    delete [] data;
+
+    // Move new dynamic array back to private member data.
+    data = new_data;
 }
 
 IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
