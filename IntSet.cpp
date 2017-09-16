@@ -209,8 +209,17 @@ IntSet IntSet::intersect(const IntSet& otherIntSet) const
 
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
 {
-   cout << "subtract() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+    IntSet subSet = (*this); // Create copy of invoking IntSet.
+
+    // If an element in intSet is also in otherSet then remove
+    // it, otherwise keep elements in their respective sets.
+    int sizeOtherInt = otherIntSet.size();
+
+    for(int index = 0; index < sizeOtherInt; ++index){
+        if(subSet.contains(otherIntSet.data[index]))
+            subSet.remove(otherIntSet.data[index]);
+    }
+    return subSet; // Return subtracted IntSet.
 }
 
 void IntSet::reset()
@@ -221,7 +230,7 @@ void IntSet::reset()
 
 bool IntSet::add(int anInt)
 {
-    
+
     // If anInt is unique then add it as the last element in the
     // data array and return true.
     if(!contains(anInt)){
