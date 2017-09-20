@@ -82,7 +82,7 @@ void IntSet::resize(int new_capacity)
     // capacity to user specified value.
     if(new_capacity <=0){capacity = DEFAULT_CAPACITY;}
     else if(new_capacity < used ){capacity = used;}
-    else{capacity = new_capacity; }
+    else{capacity = new_capacity;}
 
     // Create new dynamic array with specified capacity
     int* new_data = new int[capacity];
@@ -124,7 +124,7 @@ IntSet::~IntSet()
 {
     // Deallocate any dynamically created variables.
     delete [] data;
-    data = nullptr;
+    data = NULL;
 }
 
 IntSet& IntSet::operator=(const IntSet& rhs)
@@ -291,7 +291,7 @@ bool IntSet::remove(int anInt)
     if(contains(anInt)){
         for(int index = 0; index < used; ++index){
             if(data[index] == anInt) {
-                for(int index2 = index; index2 < used; ++index2) {
+                for(int index2 = index; index2 < used - 1; ++index2) {
                     data[index2] = data[index2 + 1];
                 }
                 --used;
@@ -302,8 +302,15 @@ bool IntSet::remove(int anInt)
     return false; // No int removed.
 }
 
-bool operator==(const IntSet& is1, const IntSet& is2)
-{
-   cout << "operator==() is not implemented yet..." << endl;
-   return false; // dummy value returned
+bool operator==(const IntSet& is1, const IntSet& is2) {
+
+    // First check to see if both IntSet objects are empty,
+    // if they are then is1 is a subset of is2. Otherwise
+    // compare every element.
+    if (is1.IntSet::isEmpty() && is2.IntSet::isEmpty()){
+        return true;
+    } else if(is1.IntSet::isSubsetOf(is2) && is2.IntSet::isSubsetOf(is1)){
+        return true;
+    }
+    return false;
 }
