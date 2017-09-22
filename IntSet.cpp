@@ -140,7 +140,7 @@ IntSet& IntSet::operator=(const IntSet& rhs)
     int* temp_data = new int[rhs.capacity];
 
     // Moved contents of rhs array to temp
-    for (int index = 0; index < rhs.capacity; ++index) {
+    for (int index = 0; index < rhs.used; ++index) {
         temp_data[index] = rhs.data[index];
     }
 
